@@ -120,9 +120,6 @@ body {
     background-color: rgba(152, 124, 85, 0.716);
 }
 
-.hide{
-    display: none;
-}
 
 /* .........Second Page for result......... */
 
@@ -155,6 +152,9 @@ body {
     margin-top: 5rem;
 }
 
+.hide{
+    display: none;
+}
 
 /* ..........Media Query........... */
 

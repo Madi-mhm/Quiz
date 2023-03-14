@@ -59,24 +59,28 @@ for(let i = 0 ; i < data.length ; i++){
     data[i].img = imageURL[i]
 }
 
-const homePageButton = document.getElementById("homePageButton")
-const homePage = document.querySelector(".homePage")
-const quizPage = document.querySelector(".quizContainer") 
-
-const image = document.querySelector(".headerImage")
-const question = document.getElementsByClassName("question")
-const answerOptions = document.getElementsByClassName("answer")
-const aText = document.getElementById("aText")
-const bText = document.querySelector("#bText")
-const cText = document.querySelector("#cText")
-const dText = document.querySelector("#dText")
-const validButton = document.getElementById("validButton")
+const homePageButton: HTMLElement | null = document.getElementById("homePageButton")
+const homePage: HTMLElement | null = document.querySelector(".homePage")
+const quizPage: HTMLElement | null = document.querySelector(".quizContainer") 
+const mainQuiz: HTMLElement | null = document.querySelector(".quizMain")
+const image: HTMLElement | null = document.querySelector(".headerImage")
+const aText: HTMLElement | null = document.getElementById("aText")
+const bText: HTMLElement | null = document.querySelector("#bText")
+const cText: HTMLElement | null = document.querySelector("#cText")
+const dText: HTMLElement | null = document.querySelector("#dText")
+const validButton:HTMLElement | null = document.getElementById("validButton")
+const result:HTMLElement | null = document.querySelector(".result")
+const wrongAnswer:HTMLElement | null = document.getElementById("wrong")
+const rightAnswer:HTMLElement | null = document.getElementById("bravo")
+const nextButton:HTMLElement | null = document.querySelector(".nextButton")
+const scoreCounter: HTMLElement | null = document.getElementById("score")
 
 
 // StartButton Action in Home Page
 homePageButton?.addEventListener("click", () =>{
    homePage?.classList.add("hide")
    quizPage?.classList.remove("hide")
+
 } );
 
 
@@ -85,7 +89,19 @@ homePageButton?.addEventListener("click", () =>{
 let currentDataIndex:number = 0
 let score: number = 0
 
+
 function quizLoad(){
+
+// Clear the html elements 
+    if (image && aText && bText && cText && dText) {
+        image.innerHTML = '';
+        aText.innerHTML = '';
+        bText.innerHTML = '';
+        cText.innerHTML = '';
+        dText.innerHTML = '';
+    }
+
+// updating the quiz with new data from data[]
     const loadQuizData: dataInfo = data[currentDataIndex]
 
     if (image && aText && bText && cText && dText) {
@@ -101,18 +117,48 @@ function quizLoad(){
 }
 quizLoad()
 
+
+// Checking the input answer
 function checkAnswer(){
 
     let selectedAnswer: any = document.querySelector('input[type = "radio"]:checked')
 
     if( selectedAnswer && selectedAnswer.nextElementSibling.textContent  === data[currentDataIndex].correct){
-        console.log("yes")
-    } else {
-        console.log("no") 
         
-    }    
+        mainQuiz?.classList.add("hide")
+        result?.classList.remove("hide")
+        wrongAnswer?.classList.add("hide")
+        score ++
+        if(scoreCounter){
+            scoreCounter.innerHTML = `score : ${score}/5`
+        }
+    }else{
+        mainQuiz?.classList.add("hide")
+        result?.classList.remove("hide")
+        rightAnswer?.classList.add("hide")
+
+        if(scoreCounter){
+            scoreCounter.innerHTML = `score : ${score}/5`
+        }
+    }
 }
 
-
 validButton?.addEventListener("click", checkAnswer)
+
+
+// Updating the quiz after answer check, score update by clicking next button
+
+nextButton?.addEventListener("click", () => {
+    result?.classList.add("hide")
+    mainQuiz?.classList.remove("hide")
+
+    if(currentDataIndex < data.length){
+        currentDataIndex ++
+        quizLoad()
+    }else{
+       
+    }
+    
+    
+})
 
