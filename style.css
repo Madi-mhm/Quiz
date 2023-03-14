@@ -1,0 +1,184 @@
+*{
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+/* ............Home Page ............ */
+.homePage{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    padding: 5% 10% 20% 10%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#bgImg{
+    background-image: url(Img/bg.jpg);
+}
+
+.homePage h1{
+    color: white;
+}
+
+.quisTimeImage{
+    width: 100%;
+    height: 100%;
+    background-image: url(Img/_112970698_qt.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+
+.homePageButton button{
+    background-color: #58EBFF;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.716);
+    border: none;
+    cursor: pointer;
+    transition: 0.3s linear;
+    box-shadow: 0 0 5px 1px rgb(72, 66, 66);
+}
+.homePageButton button:hover{
+    background-color: rgba(152, 124, 85, 0.716);
+}
+
+/* .............Quiz Cards............ */
+
+.quizContainer{
+    width: 100vw;
+    height: 100vh;
+    background-color: #B8C6DB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    
+}
+
+.quiz{
+    width: 400px;
+    height: 500px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.headerImage{
+    width: 100%;
+    height: 40%;
+    border-radius: 10px 10px 0 0;
+    
+}
+
+.headerImage img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px 10px 0 0;
+    border: none;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.quizMain{
+    padding: 0 1rem;
+}
+
+.answer ul li{
+    list-style-type: none;
+    padding: 8px 0;
+}
+
+.answer ul li input{
+    cursor: pointer;
+}
+
+#validButton{
+    background-color: #58EBFF;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.716);
+    border: none;
+    cursor: pointer;
+    transition: 0.3s linear;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.593);
+    float: right;
+    margin-right: 2rem;
+}
+
+#validButton:hover{
+    background-color: rgba(152, 124, 85, 0.716);
+}
+
+.hide{
+    display: none;
+}
+
+/* .........Second Page for result......... */
+
+.result{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 3rem;
+}
+
+.result{
+    font-size: 25px;
+    color: rgba(0, 0, 0, 0.797);
+}
+.result button{
+    background-color: #58EBFF;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.716);
+    border: none;
+    cursor: pointer;
+    transition: 0.3s linear;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.593);
+}
+
+#score{
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 5rem;
+}
+
+
+/* ..........Media Query........... */
+
+@media  screen and (min-width: 0px) {
+   .quisTimeImage{
+    display: none;
+   }    
+}
+
+@media  screen and (min-width: 800px) {
+    .homePage h1{
+        font-size: 45px;
+    }
+}
+
+@media  screen and (min-width: 1577px) {
+    .quisTimeImage{
+     display: unset;
+    }
+    .homePage h1{
+        display: none;
+    }
+    #bgImg{
+        background-image: none;
+    }
+     
+ }
