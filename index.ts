@@ -80,17 +80,18 @@ const scoreCounter: HTMLElement | null = document.getElementById("score")
 homePageButton?.addEventListener("click", () =>{
    homePage?.classList.add("hide")
    quizPage?.classList.remove("hide")
+   quizLoad()
 
 } );
-
 
 
 // Quiz Generator 
 let currentDataIndex:number = 0
 let score: number = 0
 
-
 function quizLoad(){
+
+    clearRadioInput()
 
 // Clear the html elements 
     if (image && aText && bText && cText && dText) {
@@ -100,8 +101,7 @@ function quizLoad(){
         cText.innerHTML = '';
         dText.innerHTML = '';
     }
-
-// updating the quiz with new data from data[]
+// updating the quiz with a new data object from data[]
     const loadQuizData: dataInfo = data[currentDataIndex]
 
     if (image && aText && bText && cText && dText) {
@@ -115,50 +115,61 @@ function quizLoad(){
         dText.innerHTML = loadQuizData.d        
     }
 }
-quizLoad()
 
 
-// Checking the input answer
-function checkAnswer(){
+// Clear radio button selections for a new quiz
+function clearRadioInput(){
+    const radioInputs:NodeListOf<HTMLInputElement> = document.getElementsByName('answer') as NodeListOf<HTMLInputElement>;
 
-    let selectedAnswer: any = document.querySelector('input[type = "radio"]:checked')
-
-    if( selectedAnswer && selectedAnswer.nextElementSibling.textContent  === data[currentDataIndex].correct){
-        
-        mainQuiz?.classList.add("hide")
-        result?.classList.remove("hide")
-        wrongAnswer?.classList.add("hide")
-        score ++
-        if(scoreCounter){
-            scoreCounter.innerHTML = `score : ${score}/5`
-        }
-    }else{
-        mainQuiz?.classList.add("hide")
-        result?.classList.remove("hide")
-        rightAnswer?.classList.add("hide")
-
-        if(scoreCounter){
-            scoreCounter.innerHTML = `score : ${score}/5`
-        }
+    for(let i = 0 ; i < radioInputs.length ; i++){
+        radioInputs[i].checked = false
     }
 }
 
 validButton?.addEventListener("click", checkAnswer)
 
 
+// Checking the input answer
+function checkAnswer(){
+    let selectedAnswer: any = document.querySelector('input[type = "radio"]:checked')
+
+    if( selectedAnswer && selectedAnswer.nextElementSibling.textContent  === data[currentDataIndex].correct){
+        mainQuiz?.classList.add("hide")
+        result?.classList.remove("hide")
+        wrongAnswer?.classList.add("hide")
+
+        score ++
+        if(scoreCounter){
+            scoreCounter.innerHTML = `score : ${score}/5`
+        }
+    }else if (selectedAnswer && selectedAnswer.nextElementSibling.textContent  !== data[currentDataIndex].correct) {
+        mainQuiz?.classList.add("hide")
+        result?.classList.remove("hide")
+        rightAnswer?.classList.add("hide")
+        
+        if(scoreCounter){
+            scoreCounter.innerHTML = `score : ${score}/5`
+        }
+    }else{
+        console.log("no")
+    }
+}
+
+
+
 // Updating the quiz after answer check, score update by clicking next button
 
-nextButton?.addEventListener("click", () => {
-    result?.classList.add("hide")
-    mainQuiz?.classList.remove("hide")
+nextButton?.addEventListener("click", nextButtonHandel)
 
+function nextButtonHandel(){
     if(currentDataIndex < data.length){
+        result?.classList.add("hide")
+        mainQuiz?.classList.remove("hide")
         currentDataIndex ++
         quizLoad()
     }else{
-       
+        mainQuiz?.classList.add("hide")
+        result?.classList.add("hide")
+        
     }
-    
-    
-})
-
+}
