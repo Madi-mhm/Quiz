@@ -91,7 +91,7 @@ let score: number = 0
 
 function quizLoad(){
 
-    clearRadioInput()
+    clearRadioButton()
 
 // Clear the html elements 
     if (image && aText && bText && cText && dText) {
@@ -118,7 +118,7 @@ function quizLoad(){
 
 
 // Clear radio button selections for a new quiz
-function clearRadioInput(){
+function clearRadioButton(){
     const radioInputs:NodeListOf<HTMLInputElement> = document.getElementsByName('answer') as NodeListOf<HTMLInputElement>;
 
     for(let i = 0 ; i < radioInputs.length ; i++){
@@ -128,33 +128,40 @@ function clearRadioInput(){
 
 validButton?.addEventListener("click", checkAnswer)
 
-
 // Checking the input answer
 function checkAnswer(){
-    let selectedAnswer: any = document.querySelector('input[type = "radio"]:checked')
+    const selectedAnswer: any = document.querySelector('input[type = "radio"]:checked') 
 
     if( selectedAnswer && selectedAnswer.nextElementSibling.textContent  === data[currentDataIndex].correct){
         mainQuiz?.classList.add("hide")
         result?.classList.remove("hide")
         wrongAnswer?.classList.add("hide")
+        rightAnswer?.classList.remove("hide")
 
         score ++
         if(scoreCounter){
             scoreCounter.innerHTML = `score : ${score}/5`
         }
-    }else if (selectedAnswer && selectedAnswer.nextElementSibling.textContent  !== data[currentDataIndex].correct) {
+
+    }else if ( selectedAnswer && selectedAnswer.nextElementSibling.textContent  !== data[currentDataIndex].correct) {
         mainQuiz?.classList.add("hide")
         result?.classList.remove("hide")
         rightAnswer?.classList.add("hide")
+        wrongAnswer?.classList.remove("hide")
         
         if(scoreCounter){
             scoreCounter.innerHTML = `score : ${score}/5`
         }
+
     }else{
-        console.log("no")
+        const errorMessage: HTMLElement | null = document.getElementById("errorMessage")
+        errorMessage?.classList.remove("hide")
+        setTimeout(() => {
+            errorMessage?.classList.add("hide")
+        }, 2000)
+        
     }
 }
-
 
 
 // Updating the quiz after answer check, score update by clicking next button
@@ -168,8 +175,6 @@ function nextButtonHandel(){
         currentDataIndex ++
         quizLoad()
     }else{
-        mainQuiz?.classList.add("hide")
-        result?.classList.add("hide")
-        
+        mainQuiz?.classList.add("hide")        
     }
 }

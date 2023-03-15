@@ -120,6 +120,13 @@ body {
     background-color: rgba(152, 124, 85, 0.716);
 }
 
+#errorMessage{
+    color: red;
+    padding-left: 2rem;
+    font-size: 15px;
+    position: absolute; 
+}
+
 
 /* .........Second Page for result......... */
 
@@ -144,6 +151,10 @@ body {
     cursor: pointer;
     transition: 0.3s linear;
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.593);
+}
+
+#wrong{
+    color: red;
 }
 
 #score{

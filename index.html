@@ -35,22 +35,23 @@
                     <ul>
                         <li>
                             <input type="radio" name="answer" id="a">
-                            <label for="a" id="aText">Answer</label>
+                            <label class="radioLabel" for="a" id="aText">Answer</label>
                         </li>
                         <li>
                             <input type="radio" name="answer" id="b">
-                            <label for="b" id="bText">Answer</label>
+                            <label class="radioLabel" for="b" id="bText">Answer</label>
                         </li>
                         <li>
                             <input type="radio" name="answer" id="c">
-                            <label for="c" id="cText">Answer</label>
+                            <label class="radioLabel" for="c" id="cText">Answer</label>
                         </li>
                         <li>
                             <input type="radio" name="answer" id="d">
-                            <label for="d" id="dText">Answer</label>
+                            <label class="radioLabel" for="d" id="dText">Answer</label>
                         </li>
                     </ul>
                 </div>
+                <p id="errorMessage" class="hide">*Please select an answer!</p>
                 <button id="validButton">Valid!</button>
             </div>
 
@@ -58,7 +59,7 @@
 
             <div class="result hide">
                 <h3 id="bravo">Bravo!</h3>
-                <h3 id="wrong">Wrong</h3>
+                <h3 id="wrong">Wrong!</h3>
                 <button class="nextButton">Next!</button>
                 <p id="score">score: </p>
             </div>
