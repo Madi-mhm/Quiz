@@ -59,37 +59,33 @@ for(let i = 0 ; i < data.length ; i++){
     data[i].img = imageURL[i]
 }
 
+// StartButton Action for starting tha game
 const homePageButton: HTMLElement | null = document.getElementById("homePageButton")
-const homePage: HTMLElement | null = document.querySelector(".homePage")
-const quizPage: HTMLElement | null = document.querySelector(".quizContainer") 
-const mainQuiz: HTMLElement | null = document.querySelector(".quizMain")
-const image: HTMLElement | null = document.querySelector(".headerImage")
-const aText: HTMLElement | null = document.getElementById("aText")
-const bText: HTMLElement | null = document.querySelector("#bText")
-const cText: HTMLElement | null = document.querySelector("#cText")
-const dText: HTMLElement | null = document.querySelector("#dText")
-const validButton:HTMLElement | null = document.getElementById("validButton")
-const result:HTMLElement | null = document.querySelector(".result")
-const wrongAnswer:HTMLElement | null = document.getElementById("wrong")
-const rightAnswer:HTMLElement | null = document.getElementById("bravo")
-const nextButton:HTMLElement | null = document.querySelector(".nextButton")
-const scoreCounter: HTMLElement | null = document.getElementById("score")
 
-
-// StartButton Action in Home Page
 homePageButton?.addEventListener("click", () =>{
-   homePage?.classList.add("hide")
-   quizPage?.classList.remove("hide")
-   quizLoad()
+    const homePage: HTMLElement | null = document.querySelector(".homePage")
+    const quizPage: HTMLElement | null = document.querySelector(".quizContainer") 
 
+    homePage?.classList.add("hide")
+    quizPage?.classList.remove("hide")
+
+    quizLoad()
 } );
 
 
 // Quiz Generator 
 let currentDataIndex:number = 0
 let score: number = 0
+const mainQuiz: HTMLElement | null = document.querySelector(".quizMain")
+const result:HTMLElement | null = document.querySelector(".result")
 
 function quizLoad(){
+    const image: HTMLElement | null = document.querySelector(".headerImage")
+    const aText: HTMLElement | null = document.getElementById("aText")
+    const bText: HTMLElement | null = document.querySelector("#bText")
+    const cText: HTMLElement | null = document.querySelector("#cText")
+    const dText: HTMLElement | null = document.querySelector("#dText")
+
     result?.classList.add("hide")
     mainQuiz?.classList.remove("hide")
 
@@ -103,11 +99,10 @@ function quizLoad(){
         cText.innerHTML = '';
         dText.innerHTML = '';
     }
-// updating the quiz with a new data object from data[]
+// updating the quiz with new data from data[]
     const loadQuizData: dataInfo = data[currentDataIndex]
 
     if (image && aText && bText && cText && dText) {
-        
         const img = document.createElement('img');
         img.src = loadQuizData.img;
         image.appendChild(img);
@@ -128,10 +123,14 @@ function clearRadioButton(){
     }
 }
 
-validButton?.addEventListener("click", checkAnswer)
 
 // Checking the input answer
-function checkAnswer(){
+const validButton:HTMLElement | null = document.getElementById("validButton")
+const wrongAnswer:HTMLElement | null = document.getElementById("wrong")
+const rightAnswer:HTMLElement | null = document.getElementById("bravo")
+const scoreCounter: HTMLElement | null = document.getElementById("score")
+
+validButton?.addEventListener("click", () =>{
     const selectedAnswer: any = document.querySelector('input[type = "radio"]:checked') 
 
     if( selectedAnswer && selectedAnswer.nextElementSibling.textContent  === data[currentDataIndex].correct){
@@ -164,12 +163,14 @@ function checkAnswer(){
         
     }
 }
+)
 
 
-// Updating the quiz after answer check, score update by clicking next button
-nextButton?.addEventListener("click", nextButtonHandel)
 
-function nextButtonHandel(){
+// Quiz update with next Button
+const nextButton:HTMLElement | null = document.querySelector(".nextButton")
+
+nextButton?.addEventListener("click", () =>{
     if(currentDataIndex < 4){       
         currentDataIndex ++
         quizLoad()
@@ -193,3 +194,5 @@ function nextButtonHandel(){
         })
     }
 }
+)
+
