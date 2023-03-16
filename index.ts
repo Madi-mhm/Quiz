@@ -90,6 +90,8 @@ let currentDataIndex:number = 0
 let score: number = 0
 
 function quizLoad(){
+    result?.classList.add("hide")
+    mainQuiz?.classList.remove("hide")
 
     clearRadioButton()
 
@@ -165,16 +167,29 @@ function checkAnswer(){
 
 
 // Updating the quiz after answer check, score update by clicking next button
-
 nextButton?.addEventListener("click", nextButtonHandel)
 
 function nextButtonHandel(){
-    if(currentDataIndex < data.length){
-        result?.classList.add("hide")
-        mainQuiz?.classList.remove("hide")
+    if(currentDataIndex < 4){       
         currentDataIndex ++
         quizLoad()
     }else{
-        mainQuiz?.classList.add("hide")        
+
+        if(nextButton && wrongAnswer && rightAnswer){
+            nextButton.innerText = "Replay!" 
+            wrongAnswer.innerText = `Finished, Your score is ${score}/5.`
+            rightAnswer.innerText = `Finished, Your score is ${score}/5.`
+            wrongAnswer.style.fontSize = "20px"
+            rightAnswer.style.fontSize = "20px"
+            wrongAnswer.style.color = "black"
+            rightAnswer.style.color = "black"
+        }
+
+        scoreCounter?.classList.add("hide")
+       
+        nextButton?.addEventListener("click", () => {
+            currentDataIndex = 0 
+            quizLoad()
+        })
     }
 }
