@@ -61,15 +61,40 @@ for(let i = 0 ; i < data.length ; i++){
 
 // StartButton Action for starting tha game
 const homePageButton: HTMLElement | null = document.getElementById("homePageButton")
+const homePageInput: HTMLElement | null = document.getElementById("homePageInput")
 
 homePageButton?.addEventListener("click", () =>{
     const homePage: HTMLElement | null = document.querySelector(".homePage")
-    const quizPage: HTMLElement | null = document.querySelector(".quizContainer") 
+    const quizPage: HTMLElement | null = document.querySelector(".quizContainer")
 
-    homePage?.classList.add("hide")
-    quizPage?.classList.remove("hide")
+    // Save the userName to LocalStorage
+    interface currentUserNameInfo {
+        userName : string;
+    }
+    let currentUserName: currentUserNameInfo = {userName : ""}
+    let newUserNameValueFromInput: string = (homePageInput as HTMLInputElement)?.value
 
-    quizLoad()
+    Object.assign(currentUserName, {userName : newUserNameValueFromInput});
+    let userName: string = currentUserName.userName
+    localStorage.setItem("userName", userName)
+    
+    // Start game button condition 
+    if(userName === ""){
+        if(homePageInput){
+            homePageInput.style.border = "5px red solid"
+            setTimeout(()=>{
+                homePageInput.style.border = "none"                
+            }, 2000)
+        }
+    }else{
+        
+        homePage?.classList.add("hide")
+        quizPage?.classList.remove("hide")
+        quizLoad()
+        
+
+    }   
+
 } );
 
 
@@ -111,7 +136,10 @@ function quizLoad(){
         cText.innerHTML = loadQuizData.c
         dText.innerHTML = loadQuizData.d        
     }
-}
+};
+
+
+
 
 
 // Clear radio button selections for a new quiz
@@ -132,12 +160,18 @@ const scoreCounter: HTMLElement | null = document.getElementById("score")
 
 validButton?.addEventListener("click", () =>{
     const selectedAnswer: any = document.querySelector('input[type = "radio"]:checked') 
+    const getuserNameFromLocalStorage: string | null=  localStorage.getItem('userName')
+
 
     if( selectedAnswer && selectedAnswer.nextElementSibling.textContent  === data[currentDataIndex].correct){
         mainQuiz?.classList.add("hide")
         result?.classList.remove("hide")
         wrongAnswer?.classList.add("hide")
         rightAnswer?.classList.remove("hide")
+
+        if(rightAnswer){
+            rightAnswer.innerText = `Bravo ${getuserNameFromLocalStorage}!`
+        }
 
         score ++
         if(scoreCounter){
@@ -150,8 +184,12 @@ validButton?.addEventListener("click", () =>{
         rightAnswer?.classList.add("hide")
         wrongAnswer?.classList.remove("hide")
         
+        if(wrongAnswer){
+            wrongAnswer.innerText = `Wrong ${getuserNameFromLocalStorage}!`
+        }
+
         if(scoreCounter){
-            scoreCounter.innerHTML = `score : ${score}/5`
+            scoreCounter.innerHTML = `score : ${score}/5` 
         }
 
     }else{
@@ -164,7 +202,6 @@ validButton?.addEventListener("click", () =>{
     }
 }
 )
-
 
 
 // Quiz update with next Button
@@ -188,7 +225,7 @@ nextButton?.addEventListener("click", () =>{
 
         scoreCounter?.classList.add("hide")
        
-        nextButton?.addEventListener("click", () => {
+        nextButton.addEventListener("click", () => {
             location.reload()
         })
     }
