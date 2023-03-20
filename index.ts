@@ -171,7 +171,7 @@ validButton?.addEventListener("click", () =>{
 const nextButton:HTMLElement | null = document.querySelector(".nextButton")
 
 nextButton?.addEventListener("click", () =>{
-    if(currentDataIndex < 4){       
+    if(currentDataIndex < data.length -1){       
         currentDataIndex ++
         quizLoad()
     }else{
@@ -189,8 +189,7 @@ nextButton?.addEventListener("click", () =>{
         scoreCounter?.classList.add("hide")
        
         nextButton?.addEventListener("click", () => {
-            currentDataIndex = 0 
-            quizLoad()
+            location.reload()
         })
     }
 }
