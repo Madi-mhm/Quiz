@@ -185,10 +185,6 @@ function quizTimer(){
 }
 
 
-
-
-
-
 // Checking the input answer
 const validButton:HTMLElement | null = document.getElementById("validButton")
 const wrongAnswer:HTMLElement | null = document.getElementById("wrong")
