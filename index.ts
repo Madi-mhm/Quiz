@@ -136,10 +136,9 @@ function quizLoad(){
         cText.innerHTML = loadQuizData.c
         dText.innerHTML = loadQuizData.d        
     }
+    quizTimer()
+    
 };
-
-
-
 
 
 // Clear radio button selections for a new quiz
@@ -151,6 +150,44 @@ function clearRadioButton(){
     }
 }
 
+// Timer function 
+const timerFunction = {quizTimer : 1000}
+let timerCountDown: number ;
+
+function quizTimer(){
+    let timer: HTMLElement | null = document.getElementById("timer") 
+    let timerNumber: number = 5
+    
+        timerCountDown = setInterval(()=> {
+            if(timer){
+            timer.innerHTML = timerNumber.toString()
+            timerNumber--
+            }
+    
+            if(timerNumber === -1){
+                clearInterval(timerCountDown)
+                mainQuiz?.classList.add("hide")
+                result?.classList.remove("hide")
+                wrongAnswer?.classList.add("hide")
+                rightAnswer?.classList.remove("hide")
+        
+                if(rightAnswer){
+                    rightAnswer.innerText = "Time Out"
+                }
+                
+                if(scoreCounter){
+                    scoreCounter.innerHTML = `score : ${score}/5`
+                }
+            }
+    
+        }, 1000)
+    
+}
+
+
+
+
+
 
 // Checking the input answer
 const validButton:HTMLElement | null = document.getElementById("validButton")
@@ -160,10 +197,10 @@ const scoreCounter: HTMLElement | null = document.getElementById("score")
 
 validButton?.addEventListener("click", () =>{
     const selectedAnswer: any = document.querySelector('input[type = "radio"]:checked') 
-    const getuserNameFromLocalStorage: string | null=  localStorage.getItem('userName')
-
-
+    const getuserNameFromLocalStorage: string | null=  localStorage.getItem('userName')    
+    
     if( selectedAnswer && selectedAnswer.nextElementSibling.textContent  === data[currentDataIndex].correct){
+        clearInterval(timerCountDown)
         mainQuiz?.classList.add("hide")
         result?.classList.remove("hide")
         wrongAnswer?.classList.add("hide")
@@ -177,8 +214,10 @@ validButton?.addEventListener("click", () =>{
         if(scoreCounter){
             scoreCounter.innerHTML = `score : ${score}/5`
         }
+        
 
     }else if ( selectedAnswer && selectedAnswer.nextElementSibling.textContent  !== data[currentDataIndex].correct) {
+        clearInterval(timerCountDown)
         mainQuiz?.classList.add("hide")
         result?.classList.remove("hide")
         rightAnswer?.classList.add("hide")
@@ -200,8 +239,7 @@ validButton?.addEventListener("click", () =>{
         }, 2000)
         
     }
-}
-)
+})
 
 
 // Quiz update with next Button
@@ -231,4 +269,11 @@ nextButton?.addEventListener("click", () =>{
     }
 }
 )
+
+
+
+
+
+
+
 
