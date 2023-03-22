@@ -61,6 +61,8 @@ body {
 
 /* .............Quiz Cards............ */
 
+
+
 .quizContainer{
     width: 100vw;
     height: 100vh;
@@ -190,6 +192,11 @@ body {
 
 .hide{
     display: none;
+}
+
+
+.bg-red{
+    background-color: red;
 }
 
 /* ..........Media Query........... */

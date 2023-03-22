@@ -62,11 +62,11 @@ for(let i = 0 ; i < data.length ; i++){
 // StartButton Action for starting tha game
 const homePageButton: HTMLElement | null = document.getElementById("homePageButton")
 const homePageInput: HTMLElement | null = document.getElementById("homePageInput")
+const homePage: HTMLElement | null = document.querySelector(".homePage")
+const quizPage: HTMLElement | null = document.querySelector(".quizContainer")
 
 homePageButton?.addEventListener("click", () =>{
-    const homePage: HTMLElement | null = document.querySelector(".homePage")
-    const quizPage: HTMLElement | null = document.querySelector(".quizContainer")
-
+    
     // Save the userName to LocalStorage
     interface currentUserNameInfo {
         userName : string;
@@ -246,6 +246,48 @@ nextButton?.addEventListener("click", () =>{
         currentDataIndex ++
         quizLoad()
     }else{
+        createLastPagePopUp()    
+    }
+})
+
+
+//function => Create a PopUp when the game is finish
+function createLastPagePopUp(){
+
+    const newPopUp = document.createElement("div")
+    quizPage?.appendChild(newPopUp)  
+    // newPopUp Styles
+    newPopUp.style.backgroundColor = "white"
+    newPopUp.style.position = "absolute"
+    newPopUp.style.width ="30rem"
+    newPopUp.style.height="20rem"
+    newPopUp.style.borderRadius ="10px"
+    newPopUp.style.display="flex"
+    newPopUp.style.flexDirection ="column"
+    newPopUp.style.alignItems="center"
+    newPopUp.style.justifyContent="center"
+    newPopUp.style.fontSize ="18px"
+    newPopUp.style.fontWeight ="500"
+
+    const newPopUpInsideText = document.createTextNode("Please note that this game is just for entertainment!")
+    newPopUp.appendChild(newPopUpInsideText)
+
+    const popUpButton = document.createElement("button")
+    newPopUp.appendChild(popUpButton)
+    popUpButton.innerText = "OK!"
+    // PopUp button styles
+    popUpButton.style.padding ="10px 15px"
+    popUpButton.style.border ="none"
+    popUpButton.style.backgroundColor="Orange"
+    popUpButton.style.cursor = "pointer"
+    popUpButton.style.marginTop ="2rem"
+    popUpButton.style.borderRadius ="5px"
+    popUpButton.style.color ="white"
+
+    // PopUp button function
+    popUpButton.addEventListener("click", ()=>{
+
+        newPopUp.style.display ="none"
 
         if(nextButton && wrongAnswer && rightAnswer){
             nextButton.innerText = "Replay!" 
@@ -259,12 +301,12 @@ nextButton?.addEventListener("click", () =>{
 
         scoreCounter?.classList.add("hide")
        
-        nextButton.addEventListener("click", () => {
+        nextButton?.addEventListener("click", () => {
             location.reload()
         })
-    }
+    })
 }
-)
+    
 
 
 
