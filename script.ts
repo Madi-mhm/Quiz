@@ -59,7 +59,7 @@ for(let i = 0 ; i < data.length ; i++){
     data[i].img = imageURL[i]
 }
 
-// StartButton Action for starting tha game
+// StartButton fonction for starting tha game
 const homePageButton: HTMLElement | null = document.getElementById("homePageButton")
 const homePageInput: HTMLElement | null = document.getElementById("homePageInput")
 const homePage: HTMLElement | null = document.querySelector(".homePage")
@@ -141,7 +141,7 @@ function quizLoad(){
 };
 
 
-// Clear radio button selections for a new quiz
+// Clear radio buttons selection for a new quiz
 function clearRadioButton(){
     const radioInputs:NodeListOf<HTMLInputElement> = document.getElementsByName('answer') as NodeListOf<HTMLInputElement>;
 
@@ -238,7 +238,7 @@ validButton?.addEventListener("click", () =>{
 })
 
 
-// Quiz update with next Button
+// Update the quiz data with next Button
 const nextButton:HTMLElement | null = document.querySelector(".nextButton")
 
 nextButton?.addEventListener("click", () =>{
@@ -251,7 +251,7 @@ nextButton?.addEventListener("click", () =>{
 })
 
 
-//function => Create a PopUp when the game is finish
+//function => Create a PopUp about the utility of the game when the game is finished
 function createLastPagePopUp(){
 
     const newPopUp = document.createElement("div")
